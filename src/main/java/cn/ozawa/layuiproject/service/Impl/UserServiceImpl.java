@@ -1,4 +1,4 @@
-package cn.ozawa.layuiproject.serviceImpl;
+package cn.ozawa.layuiproject.service.Impl;
 
 import cn.ozawa.layuiproject.entity.User;
 import cn.ozawa.layuiproject.mapper.UserMapper;

@@ -1,4 +1,4 @@
-package cn.ozawa.layuiproject.config;
+package cn.ozawa.layuiproject.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
