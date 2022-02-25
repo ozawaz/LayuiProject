@@ -45,7 +45,7 @@ public class Emp implements Serializable {
     private Integer age;
 
     @ApiModelProperty("员工工资")
-    @TableId("sal")
+    @TableField("sal")
     private BigDecimal sal;
 
     @ApiModelProperty("员工生日")
