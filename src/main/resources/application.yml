@@ -7,7 +7,7 @@ spring:
   # 数据源
   datasource:
     username: root
-    password: xxxxxxxx
+    password: xxxxx
     url: jdbc:mysql://120.26.85.88:3306/layui_study
   # thymeleaf缓存
   thymeleaf:
