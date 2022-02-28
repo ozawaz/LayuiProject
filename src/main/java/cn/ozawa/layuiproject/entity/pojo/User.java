@@ -1,4 +1,4 @@
-package cn.ozawa.layuiproject.entity;
+package cn.ozawa.layuiproject.entity.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -20,19 +20,26 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("dept")
-@ApiModel(value = "Dept对象", description = "")
-public class Dept implements Serializable {
+@TableName("user")
+@ApiModel(value = "User对象")
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("部门id")
-    @TableId(value = "dept_id", type = IdType.AUTO)
-    private Integer deptId;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
-    @ApiModelProperty("部门名称")
-    @TableField("dept_name")
-    private String deptName;
+    @ApiModelProperty("登录名")
+    @TableField("user_name")
+    private String userName;
+
+    @ApiModelProperty("密码")
+    @TableField("password")
+    private String password;
+
+    @ApiModelProperty("英雄名")
+    @TableField("ch_name")
+    private String chName;
 
 
 }

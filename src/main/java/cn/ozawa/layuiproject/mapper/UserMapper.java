@@ -1,6 +1,6 @@
 package cn.ozawa.layuiproject.mapper;
 
-import cn.ozawa.layuiproject.entity.User;
+import cn.ozawa.layuiproject.entity.pojo.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

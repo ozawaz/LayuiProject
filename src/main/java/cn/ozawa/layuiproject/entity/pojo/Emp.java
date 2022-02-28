@@ -1,4 +1,4 @@
-package cn.ozawa.layuiproject.entity;
+package cn.ozawa.layuiproject.entity.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("emp")
-@ApiModel(value = "Emp对象", description = "")
+@ApiModel(value = "Emp对象")
 public class Emp implements Serializable {
 
     private static final long serialVersionUID = 1L;

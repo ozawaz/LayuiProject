@@ -1,6 +1,6 @@
 package cn.ozawa.layuiproject.service.Impl;
 
-import cn.ozawa.layuiproject.entity.Dept;
+import cn.ozawa.layuiproject.entity.pojo.Dept;
 import cn.ozawa.layuiproject.mapper.DeptMapper;
 import cn.ozawa.layuiproject.service.DeptService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

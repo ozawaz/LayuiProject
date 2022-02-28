@@ -1,6 +1,6 @@
 package cn.ozawa.layuiproject.service.Impl;
 
-import cn.ozawa.layuiproject.entity.Emp;
+import cn.ozawa.layuiproject.entity.pojo.Emp;
 import cn.ozawa.layuiproject.mapper.EmpMapper;
 import cn.ozawa.layuiproject.service.EmpService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

@@ -1,6 +1,6 @@
 package cn.ozawa.layuiproject.service.Impl;
 
-import cn.ozawa.layuiproject.entity.User;
+import cn.ozawa.layuiproject.entity.pojo.User;
 import cn.ozawa.layuiproject.mapper.UserMapper;
 import cn.ozawa.layuiproject.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

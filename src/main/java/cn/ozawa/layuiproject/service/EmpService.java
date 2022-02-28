@@ -1,6 +1,6 @@
 package cn.ozawa.layuiproject.service;
 
-import cn.ozawa.layuiproject.entity.Emp;
+import cn.ozawa.layuiproject.entity.pojo.Emp;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

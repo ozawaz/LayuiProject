@@ -72,7 +72,6 @@ public class Result<T> {
      * @return 返回失败的数据
      */
     public static<T> Result<T> fail(T data){
-        Result<T> result = build(data);
         return build(data, ResponseEnum.ERROR);
     }
 
