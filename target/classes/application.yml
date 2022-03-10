@@ -5,14 +5,23 @@ server:
 # spring配置
 spring:
   # 数据源
+#  datasource:
+#    username: root
+#    password: Ef@Fxh2NLq*1jlpQ
+#    url: jdbc:mysql://120.26.85.88:3306/layui_study
   datasource:
-    username: root
-    password: Ef@Fxh2NLq*1jlpQ
-    url: jdbc:mysql://120.26.85.88:3306/layui_study
+      username: su_rt_wechat
+      password: net4yzdwq
+      url: jdbc:mysql://db01.dev.fn.com:3306/rt_official_wechat?zeroDateTimeBehavior=convertToNull&characterEncoding=utf-8
   # thymeleaf缓存
   thymeleaf:
     cache: false
   # 应用名称
   application:
     name: LayuiProject
+
+# mybatis日志，显示具体的SQL语句放在application.properties中
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 

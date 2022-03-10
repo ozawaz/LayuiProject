@@ -35,5 +35,8 @@ public class UserControllerTest {
         boolean matches2 = passwordEncoder.matches("123456", encode2);
         // 可以看到，两次匹配都一样
         log.info("\n" + matches1 + "\n" + matches2);
+
+        char[] chs = "$2a$10$.wxNTnTtLkIbIesP43RTy.nqPkiwtav6GLzhG8rsULlgXBalK9/8q".toCharArray();
+        log.info(String.valueOf(chs.length));
     }
 }

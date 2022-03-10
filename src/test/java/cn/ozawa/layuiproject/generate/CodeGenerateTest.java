@@ -20,12 +20,12 @@ public class CodeGenerateTest {
     @Test
     public void generate() {
         // 数据源配置
-        String url = "jdbc:mysql://localhost:3306/database?characterEncoding=utf8&" +
+        String url = "jdbc:mysql://db01.dev.fn.com:3306/rt_official_wechat?characterEncoding=utf8&" +
                 "zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&" +
                 "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" +
                 "serverTimezone=Asia/Shanghai&autoReconnct=true&autoReconnectForPools=true";
-        String userName = "";
-        String password = "";
+        String userName = "su_rt_wechat";
+        String password = "net4yzdwq";
 
         // globalConfig配置
         // 作者
@@ -52,7 +52,7 @@ public class CodeGenerateTest {
                     builder.parent("cn.ozawa.layuiproject") // 设置父包名
                             .entity("entity")   // pojo 实体类包名
                             .service("service") // Service 包名
-                            .serviceImpl("serviceImpl") // ***ServiceImpl 包名
+                            .serviceImpl("service.impl") // ***ServiceImpl 包名
                             .mapper("mapper")   // Mapper 包名
                             .xml("mapper")  // Mapper XML 包名
                             .controller("controller") // Controller 包名
@@ -63,7 +63,7 @@ public class CodeGenerateTest {
 
                 // 策略配置
                 .strategyConfig(builder -> {
-                    builder.addInclude("user", "emp", "dept") // 设置需要生成的表名
+                    builder.addInclude("awx_redirect_url") // 设置需要生成的表名
 
                             // Entity 策略配置
                             .entityBuilder()

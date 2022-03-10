@@ -14,7 +14,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public enum ResponseEnum {
-    SUCCESS(200, "成功"),
+    SUCCESS(0, "成功"),
     ERROR(400, "失败"),
 
     LOGIN_MOBILE_ERROR(201, "用户不存在"),

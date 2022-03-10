@@ -100,7 +100,6 @@
     <orderEntry type="library" name="Maven: org.attoparser:attoparser:2.0.5.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.unbescape:unbescape:1.1.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars:jquery-easing:1.4.1" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:jquery:1.8.3" level="project" />
     <orderEntry type="library" name="Maven: com.GitHub.whvcse:easy-captcha:1.6.2" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.16" level="project" />
@@ -125,5 +124,6 @@
     <orderEntry type="library" name="Maven: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.mapstruct:mapstruct:1.2.0.Final" level="project" />
     <orderEntry type="library" name="Maven: io.springfox:springfox-swagger-ui:2.9.2" level="project" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.79" level="project" />
   </component>
 </module>
