@@ -1,5 +1,6 @@
 package cn.ozawa.layuiproject.service;
 
+import cn.ozawa.layuiproject.common.result.Result;
 import cn.ozawa.layuiproject.entity.pojo.AwxAccountQrcode;
 import cn.ozawa.layuiproject.entity.pojo.AwxRedirectUrl;
 import cn.ozawa.layuiproject.entity.vo.AwxAccountQrcodeVO;
@@ -66,4 +67,18 @@ public interface WorkService {
      * @return 返回名称的list集合
      */
     List<String> getEffectiveQrcodeName();
+
+    /**
+     * 新建微信账号二维码跳转活动
+     * @param awxRedirectUrl 二维码跳转活动
+     * @return 返回对应状态
+     */
+    Result<Object> saveQrCodeRedirect(AwxRedirectUrl awxRedirectUrl);
+
+    /**
+     * 删除对应活动
+     * @param awxRedirectUrlVO 对应活动
+     * @return 返回是否删除
+     */
+    boolean deleteQrcodeRedirectUrl(AwxRedirectUrlVO awxRedirectUrlVO);
 }

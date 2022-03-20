@@ -1,5 +1,6 @@
 package cn.ozawa.layuiproject.entity.vo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,6 +24,10 @@ public class AwxRedirectUrlVO {
 
     @ApiModelProperty("活动类型（1 判断是否关注点 2 不判断是否关注店）")
     private String activityType;
+
+    @ApiModelProperty("选择关注店文案")
+    @TableField("choose_memo")
+    private String chooseMemo;
 
     @ApiModelProperty("活动链接")
     private String url;

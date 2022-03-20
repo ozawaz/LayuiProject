@@ -1,5 +1,8 @@
 package cn.ozawa.layuiproject.service.Impl;
 
+import cn.ozawa.layuiproject.common.result.ResponseEnum;
+import cn.ozawa.layuiproject.common.result.Result;
+import cn.ozawa.layuiproject.entity.dto.AwxRedirectUrlDTO;
 import cn.ozawa.layuiproject.entity.pojo.AwxAccountQrcode;
 import cn.ozawa.layuiproject.entity.pojo.AwxRedirectUrl;
 import cn.ozawa.layuiproject.entity.pojo.AwxRegion;
@@ -12,12 +15,15 @@ import cn.ozawa.layuiproject.service.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -29,6 +35,7 @@ import java.util.Queue;
  * @description : cn.ozawa.layuiproject.service.Impl
  */
 @Service
+@Slf4j
 public class WorkServiceImpl implements WorkService {
 
     private UserService userService;
@@ -102,10 +109,31 @@ public class WorkServiceImpl implements WorkService {
         // 获取数据
         List<AwxAccountQrcode> list = awxAccountQrcodeService
                 .lambdaQuery()
-                .ne(AwxAccountQrcode::getType, 3)
                 .list();
         // 处理数据
         return effectiveName(list);
+    }
+
+    @Override
+    public Result<Object> saveQrCodeRedirect(AwxRedirectUrl awxRedirectUrl) {
+        // 判断是否有时间段冲突
+        if (redirectUrlCanSave(awxRedirectUrl, getEffectiveDate(awxRedirectUrl.getQrcodeName()))) {
+            awxRedirectUrl.setBindMemo("");
+            awxRedirectUrlService.save(awxRedirectUrl);
+            return Result.ok().message("新建活动成功");
+        } else{
+            return Result.build(null, ResponseEnum.TIME_OVERLAPPING_ERROR);
+        }
+    }
+
+    @Override
+    public boolean deleteQrcodeRedirectUrl(AwxRedirectUrlVO awxRedirectUrlVO) {
+        return awxRedirectUrlService
+                .lambdaUpdate()
+                .eq(AwxRedirectUrl::getQrcodeName, awxRedirectUrlVO.getQrcodeName())
+                .eq(AwxRedirectUrl::getActivityName, awxRedirectUrlVO.getActivityName())
+                .eq(AwxRedirectUrl::getUrl, awxRedirectUrlVO.getUrl())
+                .remove();
     }
 
     /**
@@ -229,17 +257,76 @@ public class WorkServiceImpl implements WorkService {
         List<String> effectiveNameList = new LinkedList<>();
         // 循环获取有效名称
         for (AwxAccountQrcode qrcode : list) {
-            if (qrcode.getType() == 1) {
-                effectiveNameList.add(qrcode.getQrcodeName());
-            } else {
+            if (qrcode.getType() == 2) {
                 // 计算过期时间
                 long expireTime = qrcode.getExpireTime() + qrcode.getCreateTime().toInstant(ZoneOffset.of("+8")).toEpochMilli();
                 if (System.currentTimeMillis() < expireTime) {
                     effectiveNameList.add(qrcode.getQrcodeName());
                 }
+            } else {
+                effectiveNameList.add(qrcode.getQrcodeName());
             }
         }
         return effectiveNameList;
+    }
+
+    /**
+     * 获取所有还在进行中的活动时间
+     */
+    private List<AwxRedirectUrlDTO> getEffectiveDate(String qrcodeName) {
+        // 获取所有结束时间大于当前时间的活动
+        List<AwxRedirectUrl> effectiveRedirect = getEffectiveRedirect(qrcodeName);
+        // 取出时间
+        List<AwxRedirectUrlDTO> dtoList = new LinkedList<>();
+        for (AwxRedirectUrl awxRedirectUrl : effectiveRedirect) {
+            AwxRedirectUrlDTO dto = new AwxRedirectUrlDTO();
+            BeanUtils.copyProperties(awxRedirectUrl, dto);
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+    /**
+     * 获取特定二维码所有结束时间大于当前时间的活动
+     */
+    private List<AwxRedirectUrl> getEffectiveRedirect(String qrcodeName) {
+        // 格式转换器
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        // 获取当前时间
+        LocalDateTime nowTime = LocalDateTime.now();
+        // 获取所有结束时间大于当前时间的活动
+        return awxRedirectUrlService
+                .lambdaQuery()
+                .eq(AwxRedirectUrl::getQrcodeName, qrcodeName)
+                .gt(AwxRedirectUrl::getEndDate, format.format(nowTime))
+                .orderByAsc(AwxRedirectUrl::getBeginDate)
+                .list();
+    }
+
+    /**
+     * 判断想要存入的活动的时间段是否符合规范
+     */
+    private boolean redirectUrlCanSave(AwxRedirectUrl awxRedirectUrl, List<AwxRedirectUrlDTO> effectiveDate) {
+        // 获取传入的时间
+        LocalDateTime beginDate = awxRedirectUrl.getBeginDate();
+        LocalDateTime endDate = awxRedirectUrl.getEndDate();
+        // 比较时间
+        for (AwxRedirectUrlDTO dto : effectiveDate) {
+            if (beginDate.isAfter(dto.getEndDate())) {
+                continue;
+            }
+            if (endDate.isBefore(dto.getBeginDate())) {
+                return true;
+            }
+            if (beginDate.isBefore(dto.getEndDate()) && endDate.isAfter(dto.getEndDate())) {
+                return false;
+            } else if (beginDate.isAfter(dto.getBeginDate()) && endDate.isBefore(dto.getEndDate())) {
+                return false;
+            } else if (beginDate.isBefore(dto.getBeginDate())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

@@ -21,7 +21,8 @@ public enum ResponseEnum {
     LOGIN_PASSWORD_ERROR(202, "密码错误"),
     PASSWORD_NULL_ERROR(203, "密码不能为空"),
     CODE_NULL_ERROR(204, "验证码不能为空"),
-    CODE_ERROR(205, "验证码错误");
+    CODE_ERROR(205, "验证码错误"),
+    TIME_OVERLAPPING_ERROR(206, "该二维码在此时间段有其他活动，请重新选择开始时间和结束时间");
 
     private final Integer code;
     private final String message;
